@@ -12,4 +12,5 @@ public interface StudentService {
     Student updateStudent(Student student);
     Student removeStudent(Long id);
     Collection<Student> getStudentsByAge(int age);
+    Collection<Student> getStudentsBetweenAge(int min, int max);
 }

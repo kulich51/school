@@ -43,9 +43,15 @@ public class FacultyController {
         return getResponse(removed);
     }
 
-    @GetMapping
+    @GetMapping(params = "color")
     public ResponseEntity<Collection<Faculty>> getFacultiesByColor(@RequestParam String color) {
         return ResponseEntity.ok(facultyService.getFacultiesByColor(color));
+    }
+
+    @GetMapping(params = {"name", "color"})
+    public ResponseEntity<Collection<Faculty>> getFacultiesByNameAndColor(@RequestParam String name,
+                                                                          @RequestParam String color) {
+        return ResponseEntity.ok(facultyService.getFacultiesByNameAndColor(name, color));
     }
 
     private ResponseEntity<Faculty> getResponse(Faculty faculty) {
