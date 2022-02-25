@@ -40,6 +40,11 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
+    public Collection<Student> getStudentsBetweenAge(int min, int max) {
+        return students.findByAgeBetween(min, max);
+    }
+
+    @Override
     public Student removeStudent(Long id) {
         Student deleted = getStudent(id);
         students.deleteById(id);
