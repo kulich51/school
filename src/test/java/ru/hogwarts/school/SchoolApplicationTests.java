@@ -1,9 +1,5 @@
 package ru.hogwarts.school;
 
-import netscape.javascript.JSObject;
-import org.assertj.core.api.Assertions;
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -35,7 +31,7 @@ class SchoolApplicationTests {
 
     private String resourceUrl;
 
-    private static Student testStudent = new Student();
+    private static final Student TEST_STUDENT = new Student();
 
     private static final long TESTED_STUDENT_ID = 1L;
 
@@ -43,8 +39,8 @@ class SchoolApplicationTests {
 
     @BeforeAll
     static void initStudent() {
-        testStudent.setName("Vladimir Kulikov");
-        testStudent.setAge(27);
+        TEST_STUDENT.setName("Vladimir Kulikov");
+        TEST_STUDENT.setAge(27);
     }
 
 
@@ -86,10 +82,10 @@ class SchoolApplicationTests {
 
     @Test
     void testAddStudent() {
-        HttpEntity<Student> request = new HttpEntity<>(testStudent);
+        HttpEntity<Student> request = new HttpEntity<>(TEST_STUDENT);
         Student response = this.restTemplate.postForObject(resourceUrl, request, Student.class);
-        testStudent.setId(response.getId());
-        assertThat(response).isEqualTo(testStudent);
+        TEST_STUDENT.setId(response.getId());
+        assertThat(response).isEqualTo(TEST_STUDENT);
     }
 
     @Test
@@ -106,15 +102,17 @@ class SchoolApplicationTests {
         assertThat(response).isEqualTo(beforeUpdate);
     }
 
+    @Test
+    void testDeleteStudent() {
+        this.restTemplate.delete(resourceUrl + TESTED_STUDENT_ID);
+        Student response = getDefaultStudent();
+        assertThat(response).isNull();
+    }
+
     private Student getDefaultStudent() {
         return this.restTemplate.getForObject(
                 resourceUrl + TESTED_STUDENT_ID,
                 Student.class
         );
     }
-
-
-
-
-
 }
