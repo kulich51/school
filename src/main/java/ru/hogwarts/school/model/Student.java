@@ -16,8 +16,6 @@ public class Student {
     @JoinColumn(name = "faculty_id")
     private Faculty faculty;
 
-
-
     public Long getId() {
         return id;
     }
@@ -48,7 +46,6 @@ public class Student {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", age=" + age +
-                ", faculty=" + faculty +
                 '}';
     }
 
