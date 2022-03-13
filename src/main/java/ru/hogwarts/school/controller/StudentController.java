@@ -52,6 +52,22 @@ public class StudentController {
         return ResponseEntity.ok(studentService.getStudentsBetweenAge(min, max));
     }
 
+    @GetMapping("count")
+    public ResponseEntity<Long> getStudentsCount() {
+        return ResponseEntity.ok(studentService.getStudentsCount());
+    }
+
+    @GetMapping("average-age")
+    public ResponseEntity<Integer> getAverageAge() {
+        return ResponseEntity.ok(studentService.getAverageAge());
+    }
+
+    @GetMapping("last_students")
+    public ResponseEntity<Collection<Student>> getLastStudents(@RequestParam(required = false, defaultValue = "5") int limit) {
+        return ResponseEntity.ok(studentService.getLastStudents(limit));
+    }
+
+
     private ResponseEntity<Student> getResponse(Student student) {
         if (student == null) {
             return ResponseEntity.notFound().build();
