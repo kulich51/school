@@ -7,7 +7,10 @@ import java.io.IOException;
 import java.util.List;
 
 public interface AvatarService {
+
     void uploadAvatar(Long studentId, MultipartFile avatar) throws IOException;
+
     Avatar findAvatar(Long studentId);
+
     List<Avatar> getAll(int page, int size);
 }
