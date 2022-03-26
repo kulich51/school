@@ -1,5 +1,7 @@
 package ru.hogwarts.school.service.impl;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -28,6 +30,8 @@ public class AvatarServiceImpl implements AvatarService {
     private final AvatarRepository avatars;
     private final StudentRepository students;
 
+    private Logger logger = LoggerFactory.getLogger(StudentServiceImpl.class);
+
     public AvatarServiceImpl(AvatarRepository avatars, StudentRepository students) {
         this.avatars = avatars;
         this.students = students;
@@ -36,6 +40,7 @@ public class AvatarServiceImpl implements AvatarService {
     @Override
     public void uploadAvatar(Long studentId, MultipartFile avatarFile) throws IOException {
 
+        logger.info("uploadAvatar called");
         Student student = students.getById(studentId);
         Path filePath = Path.of(avatarsDir,
                 student.getId().toString(),
@@ -61,11 +66,13 @@ public class AvatarServiceImpl implements AvatarService {
     }
 
     private Avatar findAvatarOrCreateNew(Long studentId) {
+        logger.info("findAvatarOrCreateNew called");
         return avatars.getAvatarByStudentId(studentId).orElse(new Avatar());
     }
 
     @Override
     public Avatar findAvatar(Long studentId) {
+        logger.info("findAvatar called");
         return avatars.getAvatarByStudentId(studentId).orElseThrow();
     }
 
@@ -75,6 +82,7 @@ public class AvatarServiceImpl implements AvatarService {
 
     @Override
     public List<Avatar> getAll(int page, int size) {
+        logger.info("getAll called");
         Pageable currentPage = PageRequest.of(page - 1, size);
         return avatars.findAll(currentPage).getContent();
     }
