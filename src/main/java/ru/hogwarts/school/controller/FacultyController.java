@@ -54,6 +54,11 @@ public class FacultyController {
         return ResponseEntity.ok(facultyService.getFacultiesByNameAndColor(name, color));
     }
 
+    @GetMapping("max_length_name")
+    public ResponseEntity<String> getMaxFacultyName() {
+        return ResponseEntity.ok(facultyService.getMaxFacultyName());
+    }
+
     private ResponseEntity<Faculty> getResponse(Faculty faculty) {
         if (faculty == null) {
             return ResponseEntity.notFound().build();

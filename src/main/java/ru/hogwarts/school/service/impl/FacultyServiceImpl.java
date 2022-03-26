@@ -9,6 +9,7 @@ import ru.hogwarts.school.repository.FacultyRepository;
 import ru.hogwarts.school.service.FacultyService;
 
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -63,5 +64,13 @@ public class FacultyServiceImpl implements FacultyService {
     public Collection<Faculty> getFacultiesByNameAndColor(String name, String color) {
         logger.info("getFacultiesByNameAndColor called");
         return faculties.findByNameOrColorIgnoreCase(name, color);
+    }
+
+    @Override
+    public String getMaxFacultyName() {
+        return faculties.findAll()
+                .parallelStream()
+                .map(faculty -> faculty.getName())
+                .max(Comparator.comparing(String::length)).orElseThrow();
     }
 }

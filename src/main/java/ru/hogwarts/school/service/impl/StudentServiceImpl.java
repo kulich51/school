@@ -8,6 +8,8 @@ import ru.hogwarts.school.repository.StudentRepository;
 import ru.hogwarts.school.service.StudentService;
 
 import java.util.Collection;
+import java.util.Locale;
+import java.util.stream.Collectors;
 
 @Service
 public class StudentServiceImpl implements StudentService {
@@ -76,5 +78,23 @@ public class StudentServiceImpl implements StudentService {
         Student deleted = getStudent(id);
         students.deleteById(id);
         return deleted;
+    }
+
+    @Override
+    public Collection<String> getAllNamesStartedFrom(String starts_with) {
+        return students.findAll()
+                .parallelStream()
+                .filter(student -> student.getName().startsWith(starts_with))
+                .map(student -> student.getName().toUpperCase())
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public Integer getAverageAgeByStream() {
+        return (int) students.findAll()
+                .parallelStream()
+                .mapToInt(Student::getAge)
+                .average()
+                .getAsDouble();
     }
 }

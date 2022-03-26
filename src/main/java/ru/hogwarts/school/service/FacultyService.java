@@ -18,4 +18,6 @@ public interface FacultyService {
     Collection<Faculty> getFacultiesByColor(String color);
 
     Collection<Faculty> getFacultiesByNameAndColor(String name, String color);
+
+    String getMaxFacultyName();
 }
