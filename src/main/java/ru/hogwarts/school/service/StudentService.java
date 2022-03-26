@@ -26,5 +26,5 @@ public interface StudentService {
 
     Collection<String> getAllNamesStartedFrom(String starts_with);
 
-    Integer getAverageAgeByStream();
+    Double getAverageAgeByStream();
 }

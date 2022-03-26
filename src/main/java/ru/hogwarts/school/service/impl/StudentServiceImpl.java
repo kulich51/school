@@ -86,12 +86,13 @@ public class StudentServiceImpl implements StudentService {
                 .parallelStream()
                 .filter(student -> student.getName().startsWith(starts_with))
                 .map(student -> student.getName().toUpperCase())
+                .sorted()
                 .collect(Collectors.toList());
     }
 
     @Override
-    public Integer getAverageAgeByStream() {
-        return (int) students.findAll()
+    public Double getAverageAgeByStream() {
+        return students.findAll()
                 .parallelStream()
                 .mapToInt(Student::getAge)
                 .average()

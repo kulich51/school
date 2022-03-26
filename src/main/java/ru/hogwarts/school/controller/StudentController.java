@@ -5,7 +5,6 @@ import org.springframework.web.bind.annotation.*;
 import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.service.StudentService;
 
-import javax.swing.text.StyledEditorKit;
 import java.util.Collection;
 
 @RestController
@@ -74,7 +73,7 @@ public class StudentController {
     }
 
     @GetMapping("average-age/by-stream")
-    public ResponseEntity<Integer> getAverageAgeByStream() {
+    public ResponseEntity<Double> getAverageAgeByStream() {
         return ResponseEntity.ok(studentService.getAverageAgeByStream());
     }
 
