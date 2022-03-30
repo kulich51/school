@@ -27,4 +27,6 @@ public interface StudentService {
     Collection<String> getAllNamesStartedFrom(String starts_with);
 
     Double getAverageAgeByStream();
+
+    void printStudents(boolean isSynchronized);
 }

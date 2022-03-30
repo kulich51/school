@@ -77,6 +77,16 @@ public class StudentController {
         return ResponseEntity.ok(studentService.getAverageAgeByStream());
     }
 
+    @GetMapping("print-by-threads")
+    public void printStudents() {
+        studentService.printStudents(false);
+    }
+
+    @GetMapping("print-by-threads/sync")
+    public void printStudentsSync() {
+        studentService.printStudents(true);
+    }
+
     private ResponseEntity<Student> getResponse(Student student) {
         if (student == null) {
             return ResponseEntity.notFound().build();
