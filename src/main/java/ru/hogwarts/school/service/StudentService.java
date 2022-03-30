@@ -23,4 +23,8 @@ public interface StudentService {
     Integer getAverageAge();
 
     Collection<Student> getLastStudents(int limit);
+
+    Collection<String> getAllNamesStartedFrom(String starts_with);
+
+    Double getAverageAgeByStream();
 }
