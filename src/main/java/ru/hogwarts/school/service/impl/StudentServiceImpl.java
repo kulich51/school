@@ -98,4 +98,33 @@ public class StudentServiceImpl implements StudentService {
                 .average()
                 .getAsDouble();
     }
+
+    @Override
+    public void printStudents(boolean isSynchronized) {
+        printStudent(1L, isSynchronized);
+        printStudent(2L, isSynchronized);
+        getStudentThread(new long[]{3L, 4L}, isSynchronized).start();
+        getStudentThread(new long[]{5L, 6L}, isSynchronized).start();
+    }
+
+    private Thread getStudentThread(long[] ids, boolean isSynchronized) {
+        return new Thread(
+                () -> {
+                    for (long id : ids) {
+                        printStudent(id, isSynchronized);
+                    }
+                }
+        );
+    }
+
+    private void printStudent(Long id, boolean isSynchronized) {
+        if (isSynchronized == true) {
+            synchronized (System.out) {
+                System.out.println(students.getById(id));
+            }
+            return;
+        }
+        System.out.println(students.getById(id));
+    }
+
 }
